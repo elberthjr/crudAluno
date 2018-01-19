@@ -1,80 +1,204 @@
-<!doctype html>
-<html>
-<head>
-<title>Cadastrar Aluno</title>
-<link rel="stylesheet" type="text/css" href="C:\Users\elberth\Desktop\Junior\EBM - Tegra\crudAluno\src\main\resources\static\bootstrap.min.js">
-<script	src="C:\Users\elberth\Desktop\Junior\EBM - Tegra\crudAluno\src\main\resources\static\angular.min.js"></script>
-<script	src="C:\Users\elberth\Desktop\Junior\EBM - Tegra\crudAluno\src\main\resources\static\angular-resource.min.js"></script>
-<script src="./js/app.js"></script>
+<!DOCTYPE html>
+<html ng-app="app">
 
-<style type="text/css">
-[ng\:cloak], [ng-cloak], .ng-cloak {
-	display: none !important;
-}
-</style>
+<head>
+    <meta charset="utf-8">
+    <title>Cadastro Aluno</title>
+
+    <!-- AngularJS -->
+    <script src="lib/js/angular.js"></script>
+
+    <!-- Bootstrap -->
+    <link rel="stylesheet" type="text/css" href="lib/css/bootstrap.css">
+    <script src="lib/js/bootstrap.js"></script>
+
+    <!-- Style CSS -->
+    <style>
+        .container {
+            margin-left: auto;
+            margin-right: auto;
+            width: 800px;
+            margin-top: 20px;
+        }
+
+        .form-inline {
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        #idSexoMasculino,
+        #idSexoFeminino {
+            margin-left: 20px;
+        }
+
+        .form-group {
+            margin-top: 10px;
+        }
+
+        .btn {
+            margin-right: 20px;
+            margin-left: 20px;
+            margin-top: 40px;
+            width: 100px;
+        }
+    </style>
+
+    <script>
+        var app = angular.module("app", []);
+        app.controller("alunoController", function ($scope) {
+            $scope.alunos = [
+                {
+                    nome: "Bruno",
+                    ra: "123",
+                    sexo: "Masculino",
+                    curso: "Analise e Desenvolvimento de Sistemas",
+                    dataMatricula: "10/01/2012"
+                },
+                {
+                    nome: "Caio",
+                    ra: "789",
+                    sexo: "Masculino",
+                    curso: "Processamento de Dados",
+                    dataMatricula: "05/11/2015"
+                },
+                {
+                    nome: "Elberth",
+                    ra: "456",
+                    sexo: "Masculino",
+                    curso: "Ciencias da Computacao",
+                    dataMatricula: "22/05/2017"
+                },            
+                {
+                    nome: "Sadraque",
+                    ra: "258",
+                    sexo: "Masculino",
+                    curso: "Engenharia de Software",
+                    dataMatricula: "01/08/2014"
+                },
+                {
+                    nome: "Simone",
+                    ra: "169",
+                    sexo: "Feminino",
+                    curso: "Processamento de Dados",
+                    dataMatricula: "05/11/2015"
+                }
+            ];
+
+            $scope.btnDeletar = function(aluno){
+                console.log("deletar");
+            };
+            $scope.btnLimpar= function(){              
+                $scope.aluno.dataMatricula = null;  
+                delete $scope.aluno;
+                
+            };
+            $scope.btnProcurar= function(aluno){
+                console.log("procurar");
+            };
+            $scope.btnSalvar= function(aluno){
+                $scope.alunos.push(angular.copy(aluno));
+                $scope.aluno.dataMatricula = null;  
+                delete $scope.aluno;
+            };
+        });
+    </script>
+
+
 </head>
 
-<body ng-app="app">
-	<div class="container">
-		<h1>Cadastrar Aluno</h1>
-		<div ng-controller="home" ng-cloak class="ng-cloak">
-			<div>
-				<form class="form-control">
-					<div class="form-group">
-						<label for="InputName">Nome</label> <input type="text"
-							class="form-control" id="inputName" placeholder="Nome"
-							ng-model="aluno.nome">
-					</div>
-					<div class="form-group">
-						<label for="InputEmail">Email</label> <input type="email" 
-						class="form-control" id="inputEmail" placeholder="Email"
-							ng-model="aluno.email">
-					</div>
-					<div class="form-group">
-						<label for="InputSexo">Sexo</label> <input type="sexo" 
-						class="form-control" id="inputSexo" placeholder="Sexo"
-							ng-model="aluno.sexo">
-					</div>
-					<div class="form-group">
-						<label for="InputCurso">Curso</label> <input type="text"
-							class="form-control" id="inputCurso" placeholder="Curso"
-							ng-model="aluno.curso">
-					</div>
-					<div class="form-group">
-						<label for="InputDataInicio">Data Inicio</label> <input type="text"
-							class="form-control" id="inputDatainicio" placeholder="DataInicio"
-							ng-model="aluno.dataInicio">
-					</div>
-					<button ng-click="salvar(aluno)" class="btn btn-success">Cadastrar</button>
-				</form>
-			</div>
-			<div>
-				<table class="table" style="width: 100%">
-					<tr>
-						<th>Nome</th>
-						<th>Email</th>
-						<th>Sexo</th>
-						<th>Curso</th>
-						<th>Data Inicio</th>
-						<th>Editar</th>
-						<th>Apagar</th>
-					</tr>
-					<tr ng-repeat="a in alunos track by $index">
-						<td>{{a.nome}}</td>
-						<td>{{a.email}}</td>
-						<td>{{a.sexo}}</td>
-						<td>{{a.curso}}</td>
-						<td>{{a.dataInicio}}</td>
-						<td><button type="button" class="btn btn-primary"
-								ng-click="salvar(aluno)">Editar</button></td>
-						<td><button type="button" class="btn btn-danger"
-								ng-click="deletar(a)">Apagar</button></td>
-					</tr>
-				</table>
-			</div>
+<body ng-controller="alunoController">
+    <div class="container" ng-app>
+        <div class="jumbotron">
+            <nav>
+                <ul class="nav nav-pills pull-right" ng-init="tab=1">
+                    <li role="presentation" ng-class="{'active': tab==1}">
+                        <a href="#" ng-click="tab=1">Cadastro</a>
+                    </li>
+                    <li role="presentation" ng-class="{'active': tab==2}">
+                        <a href="#" ng-click="tab=2">Lista de Alunos</a>
+                    </li>
+                </ul>
+            </nav>
+            <h3 class="text-muted">Projeto de Cadastro de Alunos</h3>
+            <hr/>
+            <div class="tabs-container">
+                <!-- Tela Cadastro -->
+                <div class="tab-content" ng-show="tab == 1">
+                    <!-- Nome -->
+                    <div class="form-group">
+                        <label for="nome" class="col-2 col-form-label">Nome: </label>
+                        <div class="col-10">
+                            <input class="form-control" type="text" id="nome" ng-model="aluno.nome">
+                        </div>
+                    </div>
+                    <!-- RA -->
+                    <div class="form-group">
+                        <label for="ra" class="col-2 col-form-label">RA: </label>
+                        <div class="col-10">
+                            <input class="form-control" type="text" id="ra" ng-model="aluno.ra">
+                        </div>
+                    </div>
+                    <!-- Sexo -->
+                    <div class="form-group form-check form-check-inline">
+                        <label for="sexoRadio">Sexo: </label>
+                        <label class="form-check-label">
+                            <input class="form-check-input" id="idSexoMasculino" type="radio" name="sexoRadio" ng-model="aluno.sexo" value="Masculino">Masculino
+                        </label>
+                        <label class="form-check-label">
+                            <input class="form-check-input" id="idSexoFeminino" type="radio" name="sexoRadio" ng-model="aluno.sexo" value="Feminino">Feminino
+                        </label>
+                    </div>
+                    <!-- Curso -->
+                    <div class="form-group">
+                        <label for="cursoSelect">Curso: </label>
+                        <select class="form-control" id="cursoSelect" ng-model="aluno.curso">                        
+                            <option>Analise e Desenvolvimento de Sistemas</option>
+                            <option>Ciencias da Computacao</option>
+                            <option>Engenharia de Software</option>
+                            <option>Processamento de Dados</option>
+                        </select>
+                    </div>
+                    <!-- Data Matricula -->
+                    <div class="form-group">
+                        <label for="dataMatricula" class="col-2 col-form-label">Data Matricula: </label>
+                        <div class="col-10">
+                            <input class="form-control" type="date" id="dataMatricula" ng-model="aluno.dataMatricula">
+                        </div>
+                    </div>
 
-		</div>
-	</div>
-	<script src="./js/angular-bootstrap.js" type="text/javascript"></script>
+                    <!-- Botoes -->
+                    <div class="form-inline text-center">
+                        <button type="submit" class="btn btn-primary" ng-click="btnDeletar(aluno)">Deletar</button>
+                        <button type="submit" class="btn btn-primary" ng-click="btnLimpar()">Limpar</button>
+                        <button type="submit" class="btn btn-primary" ng-click="btnProcurar(aluno)">Procurar</button>
+                        <button type="submit" class="btn btn-primary" ng-click="btnSalvar(aluno)">Salvar</button>
+                    </div>
+
+                </div>
+
+                <div class="tab-content" ng-show="tab == 2">
+                    <table class="table table-striped">
+                        <tr>
+                            <th>Nome</th>
+                            <th>RA</th>
+                            <th>Sexo</th>
+                            <th>Curso</th>
+                            <th>Data Matricula</th>
+                        </tr>
+                        <tr ng-repeat="aluno in alunos">
+                            <td>{{aluno.nome}}</td>
+                            <td>{{aluno.ra}}</td>
+                            <td>{{aluno.sexo}}</td>
+                            <td>{{aluno.curso}}</td>
+                            <td>{{aluno.dataMatricula|date:'dd/MM/yyyy'}}</td>
+                        </tr>
+                    </table>
+
+                </div>
+
+            </div>
+        </div>
+    </div>
 </body>
+
 </html>
