@@ -6,7 +6,7 @@ import org.springframework.stereotype.Repository;
 import br.com.elber.ws.model.Aluno;
 
 @Repository
-public interface AlunoRepository extends JpaRepository<Aluno, String>{
+public interface AlunoRepository extends JpaRepository<Aluno, Integer>{
 
 
 }
